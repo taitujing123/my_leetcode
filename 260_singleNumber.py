@@ -20,21 +20,20 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[int]
         """
-        if nums is None or len(nums) == 0:
-        	return None
+        pivot = 0
+        for i in nums:
+            pivot ^= i
+        pivot = pivot & (-pivot)
 
-        xor = 0
-        for num in nums:
-        	xor ^= num
+        a, b = 0, 0
+        for i in nums:
+            if i & pivot == pivot:
+                a ^= i
+            else:
+                b ^= i
 
-        mask = xor & (-xor)
+        return [a, b]
 
-        ans = [0] * 2
-
-        for num in nums:
-        	if num & mask == 0:
-        		ans[0] ^= num
-        	else:
-        		ans[1] ^= num
-
-        return ans
+if __name__ == '__main__':
+    s = Solution()
+    print(s.singleNumber([1,2,1,3,2,5]))
