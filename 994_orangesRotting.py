@@ -26,14 +26,13 @@ class Solution(object):
                 if grid[i][j] == 2:
                     stack.append((i, j, 0))
         while stack:
-            i, j, time = stack.pop()
+            i, j, time = stack.pop(0)
             for loc in locs:
                 loc_x, loc_y = i + loc[0], j + loc[1]
-                if 0 < loc_x < x and 0 < loc_y < y and grid[loc_x][loc_y] == 1:
+                if 0 <= loc_x < x and 0 <= loc_y < y and grid[loc_x][loc_y] == 1:
                     grid[loc_x][loc_y] = 2
                     stack.append((loc_x,loc_y,time+1))
-        for i in grid:
-            if grid[i] == 1:
-                return -1
+        if any(1 in row for row in grid):
+            return -1
         return time
     
